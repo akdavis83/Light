@@ -1,0 +1,187 @@
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  position: relative;
+  overflow: hidden;
+  background: black;
+}
+
+body:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body.ignited,
+body.ignited * {
+  cursor: none !important;
+}
+
+#spotlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 300px;
+  height: 300px;
+  opacity: 0;
+  border-radius: 50%;
+}
+
+#spotlight:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: -50% 0 0 -50%;
+  background: url(http://teefouad.com/exp/torch/bg.jpg) no-repeat center fixed;
+  background-size: cover;
+  border-radius: inherit;
+}
+
+.is-touch #spotlight:before {
+  background: none;
+}
+
+#spotlight:after {
+  content: '';
+  position: absolute;
+  top: -1%;
+  left: -1%;
+  width: 102%;
+  height: 102%;
+  margin: -50% 0 0 -50%;
+  background: radial-gradient(ellipse at center, rgba(50, 10, 0, 0.75) 0%, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 1) 100%);
+  border-radius: inherit;
+}
+
+#torch {
+  position: absolute;
+  top: 1px;
+  left: 475px;
+  width: 300px;
+  height: 700px;
+  user-select: none;
+  cursor: pointer;
+  transform-origin: center top;
+  
+}
+
+#torch .light,
+#torch .dark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 34px 62px;
+}
+
+#torch .light {
+  opacity: 0.05;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEQAAAB8CAMAAADn5OZAAAAB71BMVEUAAABrMCxJDBt3ODtuMi5HDRpFCht8PDh5OjVFCBpLEBhvNC8+CBJlKihMEB5ECBlcHydGCR1GDhc+CxVIDBw8BxJOFRpoLCtbHitHCh1QFR9LDhtVGCRQFR53Qh4/BhJ6Ojd0OTNpLStsMi1+PztUHBqFRT9pLyxvNi5XFyqCQj04CBBQGTCtZl5/QDxYGih2OTVuMi9OGC1pLixRFSJyNjNdHyqqYlt6PDpSCy1KCiJbHSpMCSeAOUdjITRiJStZHx5YHCRGESBqLTFKFCZUGSCGTj50NDg4CROJUUFkJzBNFyuEQz9JCR+OTEZhIy9QCitvLjhuMDNMFik6DBl7QTdfIC6KSENVFydMDx+SUEqSWUdxNTFkKildIiNPECVPEyFOFRqobViARzppKDZgJiRABRaxaWF4PjZnKDNGBxtBDBhnLD1SGBqtclxYFS9SFCubX05NECNGCB+mYFmDSjxsLTRTFCeZUVN6PT59RTlnKi5MEhizd2CMVENwMzVfHjOUTlCGRkBwMjhyOi+lX1ifZVGWXEuJVEZsKjpcGzJjKSajaFSLRkpJERaOV0WFUER6N0BmJjeGQkeCTUB2Mj5kMBahW1eVV05GByNfKhWCPUR9SCGdVlNdJi5rNRmPU0aFTyVFDxRsNSqKVCioGR28AAAALHRSTlMAP3/+fw+/f38/Pr8vf7+dH9/vz6/x07+/cF1Mf49/f29UL8+/v6efj+/f35NHsX0AAAZVSURBVGjexdl5VxJRGMfxwdKSLJfMUtv3lSUWDQopCoNEwwIzUVSwkFJRMNPMhTRNy1wytdWsF9rv3hkYBNO40zl9/wo953Oe+3CnSLmk8mQy2bEdO3by7RCjrw+i4uJSuTwnh1vfcVnJ7t3bz+7aNRYIuHy+3t5eq1WxcUal8oFWq62vdziCwX1ZuUeOZMhkIMzmprbGnz/HxsYCrgGfD4DVZrNVxYui+As9rzQ3gwk+InV8/PjpE48IBggIQ0PvG6LRuo1y6/VQ+rReggQp8p0gMNo01OAJCKiuesNqYkpPAvKRItMaOgcMSkxMTHRXVz/coGoTFJyor8/bY+DPYxaRRo3ao36hsai/kW7eu3fn3h3aZSH86SIKXQwpQ+hej4h8B1KwtvaEdIN0E4EgwuWUqIVv3kQ37t+/f5vvyVoBl7NPNCgSEy6mFGMoIir7cjhBSTJSANGhyn2SaEDJFxGcZRMDCbOIyAUYpMy9ichmBqKj3IgjezMBCMp6ZGr+6UbNxxEISDR4paipwqJyKXzRie7Xb1s7O1++7CwrK7uUEF5Gxr+Ovlv4PFfprNE/eDJtbmmBkdB2napcMdQw0U0MiryMGY8fiwqQz3NOv9vY1xP+9ePHl8PcOsSjCiisuK0iwgtCVBERJUW+JCNqnapWZ1slyvLD5eXu7uWFa8nNzS06/Sa3UW/s8zrCX1KQ7L2PHgWDwbDDYTBcvXr1LulKUvSL+KbB4HCEg8HBwZkiuSjwTG4cQRsjMEQkmJvNpZaZkS8oJpNp3p98GHyxK2Y4gvkZmdwfOlm1KqwWiy1bv9iypecPF64tvjG5lV5DFvfnMreV+6J11atktcujo6PP4+HFOxBYrB5vTQHG2EQpTNlK6kbChTA27XRdtXBpO+l1Ew6z9BxXZNE5P4Kz5HJbJauqa+jmtxIBEiu2EIJkc1t2PopRqCI+PWSr7xbmgBiV3nxu645W1eEdAtLZGhEUaEujQCr9JuMDb/FfIHmK6KrwBI1DQUmPXt6WBL0s1cJlicSUyDiPtOPR28P9TXlHTzd00922jkcivDGOvfYvOtsPHCrBIH+bfbZh4nXr0jiYCAzsddFk8nLpFQrMTk72v6H55+ljs7KykiZyLjA7O7ltZGRqaqqrqysUwm01rOSniRyo/TA72W8aASMiWWwIogojMkyQeUHBKN6rhnAhE+LHToVRgKzkpons1wFR+OMKnSRdZHftB+ukwvnG7yeIEYjBEC5mQT68cjqpYlSG8NkoXJImsj2Aj16Tla8wyzxGUYb6vIZwaZrITtcQPv9FqxT92yqdfrvb+AD/6GWnO0kKojWEM9NEjgVs+CBZpRARHIdLM5nqnyDWoYb3AtJudyuBFDAgtvdDWAmdpIYiWawIJnmFSdiQ4zor/qcAo7wSSI2eAUE6n23IplCUA3kmIIcYEKstEcGNzWBGtklCBpKQHkOxBMQpII7stJFdrt44YpeAWG3YKxALmUQrFbHzCPefkICPIriw7MhZINY4YgSSnz6yXeXr5ZFnFrsbSH0WI1L+r5BhKYhuwAdEBaSd/j1dn5E+cgxIL49YmBFZAlLDjHhcAxSpJYgSSAkb4qMIfYiBZP8n5DhFVHGkmQXhPAEXQXRxhGNBVK4Biljs7IiaR4YlI4EEJJ8RcQVUlQKibd7DgpygiI4iRlZkly6wDilkQ1Q80s4jGayISod3uL3CLQUJEKSWR+qZkDNAEicpZUHwwx1VIpLNjgwTRE+OIwEhjw6P5DAhah2dRAPk+i1tPcfSUYqo6SRKVkSm1umASJoEiEdHViIgReyIRx1D9jAiOI9abXlhrzBKQTwUqSCLxUPMFBAPRfSYBM8fUxqKaDCJUSkNsQDBhZU+CT1OKSuixiQxRM6GnEhAtKzIfjXSaBp5JI8R0RDkBZDrQLj/jGgoglvfwoiciSFNrI8O2q3R/CuksaLiujQEYSUEyWVHhNMAyWBFGskgFNG2sCIyilS0SUQa6SB4czpa5KzINJBpDCIRgdHWZJaEtE0TA0hHy2AeI5IJhBq3gHCstSHJSBNBzOZbtzoGZ5gR/O7VjMggWeyIuYkaHS0z7EgRnYMMIgE5FTMGZ3LZEd7AIGtHmJGSDkSMmYIcjrlDIMhhCuSchEoLySBFmENSeXL51mP8BvtlsB43pQyjAAAAAElFTkSuQmCC');
+}
+
+body:not(.ignited) #torch .light {
+  transition: opacity 250ms;
+}
+
+body:not(.ignited) #torch:hover .light {
+  opacity: 0.25;
+}
+
+#torch .dark {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEQAAAB8CAMAAADn5OZAAAAATlBMVEUAAAAPBwYJAwIFAAATCAYEAQEBAAAHAgIDAAACAAAIAgIGAwACAAAHAgIKAQIKAwMLBQMQBgUIAwIYDgsUCQgDAAAVCwgDAAAOAwQJAAHr01KRAAAAFnRSTlMAk07OzjsSsdvoXyb1wPSBcdujouiJCk6D+gAAAedJREFUaN7d1FuSgyAQQNGmEfGtSWYU9r/RIVZKgxoR7EyM91c8hUg1TMoRMWNr/dYZohBgJ7Axz25R1DpTuq/rK7g07yEaoh3bjoyp1nRyRJm06tc5G5HKrB/9gHRXgSi6nRUCjLLfMEq6x0gF9MVJuJHEAC8UvdyyMSpKbb4rpruntGWYWOtrdK2Jwb8gailtAEMsIpgMBzqscpcg2KHsPJMI82KWPv9hNcneXspieFG09VQ5vC6uVoXBKGJYU8puQ2UM60n3t0hwhW4EwdmPC0nBXe1CanCXu5AcNhStIxy2lNflS4Rfmxw2p+aG2QX41d0VNZmMvkjVI9PJ7onwHtE2wsMQrQkQWynDEFuRQchEuXoiTD3u17PyG46MSuaLDDd9NzIO1t5BCiT2RLIlBDzDdyEFBcI/gggKBBaQKwXCDoPUFAh6I9GREfhi5DZDUn+EzRB+LoT5Iw0Fgu9BGgoEP4QICgRmCJwKSSkQHoJcKJBogpQUCPtuRE6QLARhEwQPgwgKBEKqKRB8A5JQIPwwSAlB2Qg7F5JRIBiGXCiQyEJyCgS+HZHPCA9E2DERSYGwTyJIjuC5kDwQiZ8RCO2QCP8s8kOBRCMiKRAWjDQDUgkI7vZAKoQdZaUyXQTsK0dEcPUHM50KsnRFtMYAAAAASUVORK5CYII=');
+}
+
+#highlighter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  height: 250px;
+  margin: -125px 0 0 -125px;
+  pointer-events: none;
+  border: 1px solid rgba(255, 244, 0, 0.055);
+  border-radius: 50%;
+  transform: rotate(0deg);
+  transition: all 2000ms ease-in-out 2000ms;
+  animation: spin 6000ms infinite linear;
+}
+
+#highlighter:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 1px solid rgba(255, 244, 0, 0.042);
+  border-radius: inherit;
+  animation: spin 5000ms infinite linear -1000ms;
+}
+
+#highlighter:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 1px solid rgba(255, 244, 0, 0.075);
+  border-radius: inherit;
+  animation: spin 3000ms infinite linear -2000ms reverse;
+}
+
+body.ignited #highlighter {
+  opacity: 0;
+  width: 300px;
+  height: 300px;
+  margin: -150px 0 0 -150px;
+  transition: all 200ms ease-in-out 0ms;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg) scaleX(1) scaleY(0.95);
+  }
+
+  50% {
+    transform: rotate(180deg) scaleX(0.95) scaleY(1);
+  }
+
+  100% {
+    transform: rotate(360deg) scaleX(1) scaleY(0.95);
+  }
+}
+
+body:after {
+  content: 'Dont let the light of the gospel of the Lord Jesus Christ go out!';
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  font: normal 24px Lato, serif;
+  white-space: nowrap;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #996;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+body.interactive:after {
+  display: none;
+}
